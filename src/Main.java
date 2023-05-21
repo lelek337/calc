@@ -6,55 +6,40 @@ public class Main {
     public static void main(String[] args) {
         while (true) {
             System.out.println("Input:");
-            calc(String.valueOf(scan));
+            String term = scan.nextLine();
+            try {
+                String result = calc(term);
+                System.out.println("Output: \n" + result);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
-    public static String calc(String input) {
-        ExceptionsText min = ExceptionsText.MIN;
-        ExceptionsText max = ExceptionsText.MAX;
-        ExceptionsText noOperator= ExceptionsText.OPERATOR;
-
-        String term = scan.nextLine();
-        String[] strings = term.split(" ");
-
-       if (term.length() > 5) {
-            System.out.println(max.getText());
+    public static String calc(String input) throws Exception {
+        String[] strings = input.split(" ");
+        if (strings.length != 3) {
+            throw new Exception(ExceptionsText.FORMAT_ERROR.getText());
         }
 
-        int[] numbers = new int[2];
-        numbers[0] = Integer.parseInt(strings[0]);
+        int num1 = parseNumber(strings, 0);
+        int num2 = parseNumber(strings, 2);
+
+        OperatorType operator = OperatorType.findOperationType(strings[1]);
+        return String.valueOf(operator.calculate(num1, num2));
+    }
+
+    private static int parseNumber(String[] strings, int index) throws Exception {
         try {
-            numbers[1] = Integer.parseInt(strings[2]);
+            int result = Integer.parseInt(strings[index]);
+            if (result < 0 || result > 10) {
+                throw new Exception(ExceptionsText.RANGE_ERROR.getText());
+            }
+            return result;
         } catch(ArrayIndexOutOfBoundsException e) {
-            System.out.println(min.getText());
+            throw new Exception(ExceptionsText.MIN.getText());
+        } catch (NumberFormatException e) {
+            throw new Exception(ExceptionsText.NO_VALID.getText());
         }
-
-
-        int rezult = 0;
-        switch (strings[1]) {
-            case "+":
-                rezult = numbers[0] + numbers[1];
-                break;
-            case "-":
-                rezult = numbers[0] - numbers[1];
-                break;
-            case "*":
-                rezult = numbers[0] * numbers[1];
-                break;
-            case "/":
-                rezult = numbers[0] / numbers[1];
-                break;
-            default:
-                System.out.println(noOperator.getText());
-                break;
-        }
-//        if (rezult == null) {
-//
-//        }
-            System.out.println(rezult);
-            return (String.valueOf(rezult));
-
-
     }
 }
