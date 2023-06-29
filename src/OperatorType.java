@@ -20,6 +20,7 @@ public enum OperatorType {
                 return type;
             }
         }
+        Main.exit = false;
         throw new Exception(ExceptionsText.OPERATOR.getText());
     }
 

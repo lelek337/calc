@@ -4,7 +4,7 @@ public enum ExceptionsText {
     FORMAT_ERROR("Введена невалидная строка."),
     NO_VALID("Введите числа"),
     RANGE_ERROR("Можно вводить числа от 0 до 10"),
-    OPERATOR("Нужно ввести один оператор (+, -, /, *). Попробуй ещё раз.");
+    OPERATOR("Нужно ввести один оператор (+, -, /, *).");
 
     private String russianText;
 

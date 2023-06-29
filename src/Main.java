@@ -2,9 +2,10 @@ import java.util.Scanner;
 
 public class Main {
     static Scanner scan = new Scanner(System.in);
+    public static boolean exit = true;
 
     public static void main(String[] args) {
-        while (true) {
+        while (exit) {
             System.out.println("Input:");
             String term = scan.nextLine();
             try {
@@ -33,6 +34,7 @@ public class Main {
         try {
             int result = Integer.parseInt(strings[index]);
             if (result < 0 || result > 10) {
+                exit = false;
                 throw new Exception(ExceptionsText.RANGE_ERROR.getText());
             }
             return result;
